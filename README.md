@@ -1,2 +1,2 @@
-# ThirdPersonPlatformer
-Realizado en la asignatura "Prototipado de juegos en Unity" junto Asier Mahave 
+# PrimeritoFPS
+Primer FPS. Realizado junto Asier Mahave
