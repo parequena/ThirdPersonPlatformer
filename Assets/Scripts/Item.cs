@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
     /// el jugador coja este item
     /// </summary>
     public GameManager.DoorColor m_DoorColorToActivate;
+    public GameObject m_targetWorld = null;
 
     /// <summary>
     /// GameManager presente en la escena. Necesario para activar la puerta que haga falta
@@ -19,6 +20,7 @@ public class Item : MonoBehaviour
     void Start()
     {
         // Buscamos el GameManager
+        
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
@@ -32,6 +34,7 @@ public class Item : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         ActivateDoor(other.gameObject);
+        m_targetWorld.SetActive(true);
     }
 
     /// <summary>
@@ -53,11 +56,10 @@ public class Item : MonoBehaviour
             // que al hacer el relocate del player, éste no atraviese el suelo
             GameObject spawn = new GameObject();
             Vector3 playerPos = other.transform.position;
-            spawn.transform.position = new Vector3(playerPos.x,
-           playerPos.y + 4, playerPos.z);
+            spawn.transform.position = new Vector3(playerPos.x, playerPos.y + 4, playerPos.z);
             // TODO 5 - Llamar directamente a la función SetCurrentSpawnPoint sobre el componente GameManager
             // pasando como parámetro la matriz de transformación de nuestro nuevo GameObject
-            gmComp.SetCurrentSpawnPoint(spawn.transform);
+            // gmComp.SetCurrentSpawnPoint(spawn.transform);
             // TODO 6 - Autodestruirse
             //Desaparece el ítem de la escena
             // Pista: Destroy(...);
