@@ -49,7 +49,9 @@ public class SuperJumpPowerUp : MonoBehaviour
             // GUIManager.Instance.StartPowerUpTimer(m_duration);
 
             // TODO Refactor 2 - Obtener el componente TrailRenderer del jugador y activarlo
-
+            trailRenderer = other.GetComponent<TrailRenderer>();
+            if (trailRenderer != null)
+                trailRenderer.enabled = true;
         }
 
         yield return new WaitForSeconds(m_duration);
@@ -58,7 +60,7 @@ public class SuperJumpPowerUp : MonoBehaviour
         other.SendMessage("RestoreJumpHeight");
 
         // TODO Refactor 2 - Obtener el componente TrailRenderer del jugador y desactivarlo
-
+        trailRenderer.enabled = false;
 
         Destroy(gameObject);
     }
