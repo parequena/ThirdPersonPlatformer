@@ -14,8 +14,6 @@ public class SuperJumpPowerUp : MonoBehaviour
 	/// </summary>
 	public float m_SuperJumpHeight = 4.0f;
 
-    public GameObject m_imagePwUp = null;
-
     /// <summary>
     /// Cuando el jugador toca el ítem, este debe otorgar la habilidad de super-salto al jugador
     /// durante un tiempo determinado
@@ -25,28 +23,20 @@ public class SuperJumpPowerUp : MonoBehaviour
     /// </param>
     IEnumerator OnTriggerEnter(Collider other)
 	{
-        m_imagePwUp.GetComponent<PowerUpTimer>().TotalTime = m_duration;
-        m_imagePwUp.SetActive(true);
-        
         // TODO 2 - Si el objeto que entra en mi trigger tiene el tag player
 
         TrailRenderer trailRenderer = null;
         if (other.tag == "Player")
         {
             // TODO 3 - Le envío un mensaje "SetJumpHeight" con la altura que tengo configurada para el super-salto
-
             other.SendMessage("SetJumpHeight", m_SuperJumpHeight);
             // TODO 4 - Desactivo el renderer y el collider de mi gameObject
             // Pista: atributo "enabled"
             this.GetComponent<Renderer>().enabled = false;
             this.GetComponent<Collider>().enabled = false;
 
-
             // TODO Refactor 1 - Iniciar el timer del GUIManager (método StartPowerUpTimer)
-            // Nosotros le hemos pasado la imagen al power up, porque ahora mismo
-            // solo tenemos 1 power up, si hubiera más de uno, deberíamos, realizar
-            // un GUIManager, que tenga todas las instancias hijas de la GUI.
-            // GUIManager.Instance.StartPowerUpTimer(m_duration);
+            GUIManager.Instance.StartPowerUpTimer(m_duration);
 
             // TODO Refactor 2 - Obtener el componente TrailRenderer del jugador y activarlo
             trailRenderer = other.GetComponent<TrailRenderer>();
@@ -60,7 +50,8 @@ public class SuperJumpPowerUp : MonoBehaviour
         other.SendMessage("RestoreJumpHeight");
 
         // TODO Refactor 2 - Obtener el componente TrailRenderer del jugador y desactivarlo
-        trailRenderer.enabled = false;
+        if (trailRenderer != null)
+            trailRenderer.enabled = false;
 
         Destroy(gameObject);
     }

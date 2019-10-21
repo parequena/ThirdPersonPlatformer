@@ -28,19 +28,20 @@ public class PowerUpTimer : MonoBehaviour
 		// TODO 1 - Comprobamos si se ha acabado el tiempo
         if (m_RemainingTime <= 0)
         {
-            // enabled = false;
-            gameObject.SetActive(false);
             // TODO 2 - Desactivamos el gameobject para que no se pinte
- 
+            gameObject.SetActive(false);
         }
         else
         {
+            // TODO 3 - Calculamos cuánto powerup hay que pintar (entre 0 y 1)
+            // dependiendo del tiempo que nos queda
+            float frac = Mathf.InverseLerp(0, TotalTime, m_RemainingTime);
 
-            float portion = Mathf.InverseLerp(0, TotalTime, m_RemainingTime);
             // TODO 4 - Asignamos este valor al fillAmount de la imagen
-            m_Image.fillAmount = portion;
+            m_Image.fillAmount = frac;
             // TODO 5 - Restamos al tiempo restante el tiempo que ha pasado
-            m_RemainingTime -= Time.deltaTime;
+
+            m_RemainingTime -= Time.deltaTime;
         }
-    }
+	}
 }

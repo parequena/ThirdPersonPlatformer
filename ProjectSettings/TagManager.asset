@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Fire
   - GameManager
   layers:
   - Default
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Minimapa
+  - Ground
   - 
   - 
   - 

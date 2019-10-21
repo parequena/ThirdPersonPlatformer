@@ -10,21 +10,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
 		[SerializeField] float m_JumpPower = 12f;
-        [SerializeField] float m_lastPowerUp = 0.0f;
-        [Range(1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
+		[Range(1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
 		[SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
 
-        public void SetJumpHeight(float height)
-        {
-            m_lastPowerUp = m_JumpPower;
-            m_JumpPower = height;
-        }
-        public void RestoreJumpHeight() { m_JumpPower = m_lastPowerUp; }
-
-        Rigidbody m_Rigidbody;
+		Rigidbody m_Rigidbody;
 		Animator m_Animator;
 		bool m_IsGrounded;
 		float m_OrigGroundCheckDistance;
@@ -37,8 +29,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
+        private float m_lastPowerUp;
+        public void SetJumpHeight(float height)
+        {
+            m_lastPowerUp = m_JumpPower;
+            m_JumpPower = height;
+        }
 
-		void Start()
+        public void RestoreJumpHeight( )
+        {
+            m_JumpPower = m_lastPowerUp;
+        }
+
+        void Start()
 		{
 			m_Animator = GetComponent<Animator>();
 			m_Rigidbody = GetComponent<Rigidbody>();

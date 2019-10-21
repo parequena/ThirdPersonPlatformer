@@ -29,13 +29,11 @@ public class DeathScript: MonoBehaviour{
 	/// </param>
 	void OnTriggerEnter(Collider other)
 	{
-		// TODO 2 - Comprobamos que el transform del objeto que colisiona, es el player
-        // If the player touches the trigger, respawn it.
-        if(other.tag == m_Player.tag)
+        // TODO 2 - Comprobamos que el transform del objeto que colisiona, es el player
+        if (other.tag == m_Player.tag)
         {
+            // TODO 3 - Enviamos un mensaje al GameManager llamando a la función "RespawnPlayer"
             m_GameManager.SendMessage("RespawnPlayer");
         }
-
-        // TODO 3 - Enviamos un mensaje al GameManager llamando a la función "RespawnPlayer"
 	}
 }
