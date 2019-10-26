@@ -57,14 +57,15 @@ public class Item : MonoBehaviour
                 // TODO 4 - Crear un nuevo GameObject (indicar que es necesario para crear un nuevo transform)
                 // Dicho GameObject será el nuevo spawnPoint del player. Habrá que sumarle (0,4,0) a su posición para
                 // que al hacer el relocate del player, éste no atraviese el suelo
+                /*
                 GameObject spawn = new GameObject();
                 spawn.transform.position = new Vector3(other.transform.position.x,
                     other.transform.position.y+4, other.transform.position.z);
-
+                */
 
                 // TODO 5 - Llamar directamente a la función SetCurrentSpawnPoint sobre el componente GameManager
                 // pasando como parámetro la matriz de transformación de nuestro nuevo GameObject
-                gmComp.SetCurrentSpawnPoint(spawn.transform);
+                // gmComp.SetCurrentSpawnPoint(spawn.transform);
 
                 // TODO 6 - Autodestruirse
                 //Desaparece el ítem de la escena
