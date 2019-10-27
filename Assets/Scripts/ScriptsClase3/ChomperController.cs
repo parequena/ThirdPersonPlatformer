@@ -12,31 +12,52 @@ public class ChomperController : MonoBehaviour
     public float angle;
     public float rotationTime;
 
+    public Transform[] Mojones;
+
     private Rigidbody rigidbody;
     private ChomperAnimation chomperAnimation;
-    private bool rotate;
+    // private bool rotate;
+    private Quaternion _lookRotation;
+    private Vector3 _direction;
 
+    public Transform objetivo;
+    private int indexObj;
+
+    /// <summary>
+	/// Game Manager para hacer respawn del jugador
+	/// </summary>
+	private GameObject m_GameManager = null;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         chomperAnimation = GetComponent<ChomperAnimation>();
-        rotate = false;
+        // rotate = false;
+        indexObj = 0;
+        m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     // Update is called once per frame
     void Update()
     {
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
-        if (Random.Range(0f, 1f) >= 0.95f && !rotate)
-            StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
+        //if (Random.Range(0f, 1f) >= 0.95f && !rotate)
+        //    StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
+        if (!run)
+            objetivo = Mojones[indexObj];
 
+        _direction = (objetivo.position - transform.position).normalized;
+        _lookRotation = Quaternion.LookRotation(_direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationTime);
+
+        animationSpeed = run ? 1.0f : 0.5f; 
         chomperAnimation.Updatefordward(animationSpeed);
         //La velocidad depende de si está corriendo o no
         float s = run ? runSpeed : speed;
         //#TODO: Habra que meter gravedad
         transform.position +=  transform.forward * s * Time.deltaTime;
+        // Debug.Log(transform.forward);
         //#TODO: Habra que comprobar colisiones.
 
     }
@@ -44,7 +65,7 @@ public class ChomperController : MonoBehaviour
     IEnumerator Rotate(bool inverse)
     {
         float time = 0;
-        rotate = true;
+        // rotate = true;
         float realAngle = inverse ? -angle : angle;
         //Podemos rotar a izquierda o a derecha.
         Quaternion newRotation = Quaternion.Euler(transform.rotation.eulerAngles + Vector3.up * realAngle);
@@ -56,6 +77,22 @@ public class ChomperController : MonoBehaviour
             
             yield return new WaitForEndOfFrame();
         }
-        rotate = false;
+        // rotate = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(name);
+        indexObj = (indexObj + 1) % 2;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            // TODO 3 - Enviamos un mensaje al GameManager llamando a la función "RespawnPlayer"
+            m_GameManager.SendMessage("RespawnPlayer");
+            Debug.Log("A cascarla");
+        }
     }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/yellow_world.unity
     guid: 59234e9c45ad19647b8bf7288c72c090
+  - enabled: 1
+    path: Assets/Scenes/red_world.unity
+    guid: f8fd1d7d383e36e45b10fac771183de3
   m_configObjects: {}
