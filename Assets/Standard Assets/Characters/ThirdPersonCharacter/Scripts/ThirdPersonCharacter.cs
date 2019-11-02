@@ -231,11 +231,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = Vector3.up;
 				m_Animator.applyRootMotion = false;
 			}
-            
-            /*if (hitInfo.collider.tag == "Enemy")
-            {
-                Destroy(hitInfo.collider.gameObject);
-            }*/
 
         }
 	}

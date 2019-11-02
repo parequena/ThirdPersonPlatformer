@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 455904494}
   - component: {fileID: 455904493}
   - component: {fileID: 455904492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tenerife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,6 +336,11 @@ PrefabInstance:
       propertyPath: m_DoorColorToActivate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2550870417307346454, guid: 2d44d44c79f6e334483eed4e083a6ae6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7221399b2c69d2478cb8eb63c8f48fe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d44d44c79f6e334483eed4e083a6ae6, type: 3}
 --- !u!4 &983671796 stripped
@@ -567,7 +572,7 @@ GameObject:
   - component: {fileID: 1778270386}
   - component: {fileID: 1778270385}
   - component: {fileID: 1778270384}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pozo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

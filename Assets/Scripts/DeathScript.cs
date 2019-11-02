@@ -37,7 +37,7 @@ public class DeathScript: MonoBehaviour{
         }
         else
         {
-            Destroy(other.transform.parent.gameObject);
+            Destroy(other.transform.gameObject);
         }
 	}
 }

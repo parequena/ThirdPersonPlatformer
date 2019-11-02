@@ -12,7 +12,7 @@ public class ChomperKill : MonoBehaviour
         if (hitInfo.collider !=  null && hitInfo.collider.tag == "Enemy")
         {
             Debug.Log("Muerto");
-            Destroy(hitInfo.collider.transform.parent.gameObject);
+            Destroy(hitInfo.collider.transform.gameObject);
         }
     }
 }

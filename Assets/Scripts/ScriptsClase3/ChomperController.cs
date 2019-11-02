@@ -21,7 +21,11 @@ public class ChomperController : MonoBehaviour
     private Vector3 _direction;
 
     public Transform objetivo;
+    private Transform player;
     private int indexObj;
+    private RaycastHit hit;
+
+    public float m_MinDistance = 1.0f;
 
     /// <summary>
 	/// Game Manager para hacer respawn del jugador
@@ -36,6 +40,9 @@ public class ChomperController : MonoBehaviour
         // rotate = false;
         indexObj = 0;
         m_GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        objetivo = Mojones[indexObj];
     }
 
     // Update is called once per frame
@@ -44,8 +51,26 @@ public class ChomperController : MonoBehaviour
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
         //if (Random.Range(0f, 1f) >= 0.95f && !rotate)
         //    StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
+
+        // Debug.Log(player.position);
+        // Does the ray intersect any objects excluding the player layer
+        Debug.DrawLine(transform.position, player.position, Color.red);
+        run = false;
+        if (Physics.Raycast(transform.position, (player.position-transform.position).normalized, out hit, 10))
+        {
+            if (hit.collider.tag == "Player")
+            {
+                run = true;
+                objetivo = player;
+            }
+        }
+
         if (!run)
+        {
+            _CheckArrived();
             objetivo = Mojones[indexObj];
+        }
+            
 
         _direction = (objetivo.position - transform.position).normalized;
         _lookRotation = Quaternion.LookRotation(_direction);
@@ -59,7 +84,6 @@ public class ChomperController : MonoBehaviour
         transform.position +=  transform.forward * s * Time.deltaTime;
         // Debug.Log(transform.forward);
         //#TODO: Habra que comprobar colisiones.
-
     }
 
     IEnumerator Rotate(bool inverse)
@@ -80,19 +104,23 @@ public class ChomperController : MonoBehaviour
         // rotate = false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(name);
-        indexObj = (indexObj + 1) % 2;
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "Player")
         {
             // TODO 3 - Enviamos un mensaje al GameManager llamando a la función "RespawnPlayer"
             m_GameManager.SendMessage("RespawnPlayer");
-            Debug.Log("A cascarla");
+        }
+    }
+
+    void _CheckArrived()
+    {
+        // TODO 3 - Comprobar si la plataforma está a menos distancia de la distancia mínima
+        float remDist = Vector3.SqrMagnitude(objetivo.position - transform.position);
+        if (remDist < m_MinDistance)
+        {
+            // TODO 4 - Cambiar el currentWaypoint, para que sea el contrario
+            indexObj = (indexObj + 1) % 2;
         }
     }
 }

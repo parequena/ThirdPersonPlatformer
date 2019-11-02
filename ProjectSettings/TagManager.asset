@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - GameManager
   - Enemy
+  - MarinaDor
   layers:
   - Default
   - TransparentFX

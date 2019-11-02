@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/red_world.unity
     guid: f8fd1d7d383e36e45b10fac771183de3
+  - enabled: 1
+    path: Assets/Scenes/MarinaDor.unity
+    guid: c8139d95a9f8971438b1b19103f8da97
   m_configObjects: {}
