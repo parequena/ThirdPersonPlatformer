@@ -189,4 +189,14 @@ public class RotatingPlatform : MonoBehaviour {
 		
 		return frameRotation;
 	}
+
+    private void OnTriggerStay(Collider other)
+    {
+        
+        if(Mathf.Abs(m_CurrentZRotation) > 45)
+        {
+            other.GetComponent<Rigidbody>().AddForce(0, -45, 0);
+        }
+        
+    }
 }

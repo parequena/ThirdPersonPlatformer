@@ -35,6 +35,8 @@ public class StickyFloor : MonoBehaviour {
             other.transform.parent = m_globalParent;
             other.transform.localScale = m_EnterScale;
             att.IsAttached = false;
+
+            other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0,1);
         }
     }
 }
